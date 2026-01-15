@@ -23,11 +23,11 @@ public class CapitanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_capitan);
 
-        // 获取传递的用户角色信息
+
         String userRole = getIntent().getStringExtra("USER_ROLE");
         String roleName = getIntent().getStringExtra("ROLE_NAME");
 
-        // 可以根据角色显示不同的欢迎信息等
+
         if (roleName != null) {
             Toast.makeText(this, "Bienvenido, " + roleName, Toast.LENGTH_SHORT).show();
         }
