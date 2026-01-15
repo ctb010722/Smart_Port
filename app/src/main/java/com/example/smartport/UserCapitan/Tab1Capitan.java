@@ -88,13 +88,13 @@ public class Tab1Capitan extends Fragment implements OnMapReadyCallback, GoogleM
 
         connectMqtt();
 
-        // 开门按钮逻辑保持不变（与摇一摇无关）
+
         btnOpenGate.setOnClickListener(v -> {
             if (isRequestInProgress) return;
             sendOpenCommand();
         });
 
-        // 初始化加速度计
+
         sensorManager = (SensorManager) requireContext().getSystemService(Context.SENSOR_SERVICE);
         if (sensorManager != null) {
             accelerometer = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
@@ -292,15 +292,15 @@ public class Tab1Capitan extends Fragment implements OnMapReadyCallback, GoogleM
             return;
         }
 
-        String payload = "OPEN";   // Arduino 收到这串字符就开门
+        String payload = "OPEN";
         MqttMessage message = new MqttMessage(payload.getBytes());
         message.setQos(1);
 
         try {
-            // 主题必须和 Arduino 订阅的一模一样！
+
             mqttClient.publish("smartport/gate/main_gate", message);
 
-            // 下面这些 UI 反馈不动
+
             isRequestInProgress = true;
             btnOpenGate.setEnabled(false);
             btnOpenGate.setText("ENVIADO");

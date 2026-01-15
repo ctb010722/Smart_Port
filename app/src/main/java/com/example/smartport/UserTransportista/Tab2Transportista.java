@@ -101,7 +101,7 @@ public class Tab2Transportista extends Fragment {
         View view = inflater.inflate(R.layout.tab2_transportista, container, false);
 
         initViews(view);
-        setupToolbar(); // 设置 Toolbar
+        setupToolbar();
         setupClickListeners();
         loadUserDataFromFirestore();
 
@@ -138,7 +138,7 @@ public class Tab2Transportista extends Fragment {
             }
         });
 
-        // 确保 Toolbar 显示菜单
+
         toolbar.inflateMenu(R.menu.profile_menu);
     }
 
