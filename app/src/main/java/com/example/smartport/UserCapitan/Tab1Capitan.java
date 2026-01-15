@@ -272,12 +272,12 @@ public class Tab1Capitan extends Fragment implements OnMapReadyCallback, GoogleM
             mqttClient.connect(options, null, new IMqttActionListener() {
                 @Override
                 public void onSuccess(IMqttToken asyncActionToken) {
-                    Toast.makeText(getContext(), "MQTT 已连接", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Conectado a MQTT", Toast.LENGTH_SHORT).show();
                 }
 
                 @Override
                 public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast.makeText(getContext(), "MQTT 连接失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error en la conexión MQTT", Toast.LENGTH_LONG).show();
                 }
             });
         } catch (MqttException e) {
@@ -287,7 +287,7 @@ public class Tab1Capitan extends Fragment implements OnMapReadyCallback, GoogleM
 
     private void sendOpenCommand() {
         if (mqttClient == null || !mqttClient.isConnected()) {
-            Toast.makeText(getContext(), "MQTT 未连接，正在重连...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "MQTT no conectado, reconectando...", Toast.LENGTH_SHORT).show();
             connectMqtt();
             return;
         }
