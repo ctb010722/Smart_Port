@@ -222,11 +222,11 @@ public class Tab1Capitan extends Fragment implements OnMapReadyCallback, GoogleM
 
         // 重要：确认传感器存在 & 注册监听
         if (sensorManager == null) {
-            Toast.makeText(getContext(), "SensorManager不可用", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "SensorManager no está disponible", Toast.LENGTH_SHORT).show();
             return;
         }
         if (accelerometer == null) {
-            Toast.makeText(getContext(), "该设备没有加速度传感器", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Este dispositivo no tiene acelerómetro", Toast.LENGTH_SHORT).show();
             return;
         }
 

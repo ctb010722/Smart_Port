@@ -128,7 +128,7 @@ public class Tab1EncargadoSeguridad extends Fragment {
                 // 每次连接成功（包括重连）都会进来
                 requireActivity().runOnUiThread(() -> {
                     Toast.makeText(getContext(),
-                            reconnect ? "MQTT 重连成功" : "MQTT 已连接",
+                            reconnect ? "Reconexión MQTT correcta" : "Conectado a MQTT",
                             Toast.LENGTH_SHORT).show();
                 });
                 subscribeWeightResponse(); // ✅重连后也会重新订阅
@@ -161,12 +161,12 @@ public class Tab1EncargadoSeguridad extends Fragment {
                     // connectComplete() 也会触发，这里不用再 subscribe
                 }
                 @Override public void onFailure(IMqttToken asyncActionToken, Throwable exception) {
-                    Toast.makeText(getContext(), "MQTT 连接失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getContext(), "Error en la conexión MQTT", Toast.LENGTH_LONG).show();
                 }
             });
         } catch (MqttException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "MQTT 连接异常", Toast.LENGTH_LONG).show();
+            Toast.makeText(getContext(), "Error de conexión MQTT", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -179,13 +179,13 @@ public class Tab1EncargadoSeguridad extends Fragment {
             Toast.makeText(getContext(), "Suscrito: " + TOPIC_WEIGHT_RESPONSE, Toast.LENGTH_SHORT).show();
         } catch (MqttException e) {
             e.printStackTrace();
-            Toast.makeText(getContext(), "订阅失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Suscripción fallida: " + e.getMessage(), Toast.LENGTH_SHORT).show();
         }
     }
 
     private void sendWeightRequest() {
         if (mqttClient == null || !mqttClient.isConnected()) {
-            Toast.makeText(getContext(), "MQTT 未连接，正在重连...", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "MQTT no conectado, reconectando...", Toast.LENGTH_SHORT).show();
             connectMqtt();
             return;
         }
