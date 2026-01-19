@@ -91,6 +91,7 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
         // 点击事件
         holder.itemView.setOnClickListener(v -> {
             showCargoDetailDialog(cargo);
+
         });
     }
 
@@ -122,6 +123,8 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
         TextView tvDetailId = detailDialog.findViewById(R.id.tvDetailId);
         TextView tvDetailDescripcion = detailDialog.findViewById(R.id.tvDetailDescripcion);
         Button btnCloseDetail = detailDialog.findViewById(R.id.btnCloseDetail);
+        Button btnEditCargo = detailDialog.findViewById(R.id.btnEditCargo);
+
 
         // 设置货物数据
         // 图片
@@ -166,12 +169,122 @@ public class CargoAdapter extends RecyclerView.Adapter<CargoAdapter.CargoViewHol
             tvDetailDescripcion.setText("No hay descripción disponible");
         }
 
+        //编辑按钮
+        btnEditCargo.setOnClickListener(v -> {
+            detailDialog.dismiss();
+            showEditCargoDialog(cargo);
+        });
+
+
         // 关闭按钮
         btnCloseDetail.setOnClickListener(v -> detailDialog.dismiss());
 
         // 显示弹窗
         detailDialog.show();
     }
+
+    private void showEditCargoDialog(Cargo cargo) {
+        final Dialog editDialog = new Dialog(context);
+        editDialog.setContentView(R.layout.dialog_edit_cargo);
+        editDialog.setCancelable(true);
+
+        // 你需要在 dialog_edit_cargo.xml 里有这些 id
+        com.google.android.material.textfield.TextInputEditText etTipo =
+                editDialog.findViewById(R.id.etTipo);
+        com.google.android.material.textfield.TextInputEditText etDescripcion =
+                editDialog.findViewById(R.id.etDescripcion);
+        com.google.android.material.textfield.TextInputEditText etImagenUrl =
+                editDialog.findViewById(R.id.etImagenUrl);
+        com.google.android.material.textfield.TextInputEditText etPesoTotal =
+                editDialog.findViewById(R.id.etPesoTotal);
+        com.google.android.material.switchmaterial.SwitchMaterial swEnviado =
+                editDialog.findViewById(R.id.swEnviado);
+        swEnviado.setChecked(cargo.isEnviado());
+
+
+
+        TextView tvError = editDialog.findViewById(R.id.tvError);
+        Button btnCancel = editDialog.findViewById(R.id.btnCancel);
+        Button btnSave = editDialog.findViewById(R.id.btnSave);
+
+        // 预填充原数据
+        etTipo.setText(cargo.getTipo() == null ? "" : cargo.getTipo());
+        etDescripcion.setText(cargo.getDescripcion() == null ? "" : cargo.getDescripcion());
+        etImagenUrl.setText(cargo.getImagenUrl() == null ? "" : cargo.getImagenUrl());
+        etPesoTotal.setText(String.valueOf(cargo.getPesoTotal()));
+        swEnviado.setChecked(cargo.isEnviado());
+
+        btnCancel.setOnClickListener(v -> editDialog.dismiss());
+
+
+
+
+
+        //让它占屏幕90%
+        Window window = editDialog.getWindow();
+        if (window != null) {
+            WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+            lp.copyFrom(window.getAttributes());
+            lp.width = (int) (getScreenWidth() * 0.90); // ✅ 90% 屏宽
+            lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+            lp.gravity = Gravity.CENTER;
+            window.setAttributes(lp);
+
+        }
+
+
+        btnSave.setOnClickListener(v -> {
+            String tipo = etTipo.getText() == null ? "" : etTipo.getText().toString().trim();
+            String descripcion = etDescripcion.getText() == null ? "" : etDescripcion.getText().toString().trim();
+            String imagenUrl = etImagenUrl.getText() == null ? "" : etImagenUrl.getText().toString().trim();
+            String pesoStr = etPesoTotal.getText() == null ? "" : etPesoTotal.getText().toString().trim();
+
+            if (tipo.isEmpty()) {
+                tvError.setText("El tipo es obligatorio");
+                tvError.setVisibility(View.VISIBLE);
+                return;
+            }
+
+            double pesoTotal = 0.0;
+            try {
+                if (!pesoStr.isEmpty()) pesoTotal = Double.parseDouble(pesoStr);
+            } catch (Exception e) {
+                tvError.setText("El peso debe ser un número válido");
+                tvError.setVisibility(View.VISIBLE);
+                return;
+            }
+
+            tvError.setVisibility(View.GONE);
+            btnSave.setEnabled(false);
+
+            java.util.Map<String, Object> updates = new java.util.HashMap<>();
+            updates.put("tipo", tipo);
+            updates.put("descripcion", descripcion);
+            updates.put("imagenUrl", imagenUrl);
+            updates.put("pesoTotal", pesoTotal);
+            boolean enviado = swEnviado.isChecked();
+            updates.put("enviado", enviado);
+
+
+            com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                    .collection("cargos")
+                    .document(cargo.getId())
+                    .update(updates) // ✅ 必须用 update，不要 set
+                    .addOnSuccessListener(aVoid -> {
+                        android.widget.Toast.makeText(context, "Actualizado", android.widget.Toast.LENGTH_SHORT).show();
+                        editDialog.dismiss();
+                    })
+                    .addOnFailureListener(e -> {
+                        android.util.Log.e("CargoAdapter", "update failed", e);
+                        tvError.setText("Error: " + e.getMessage());
+                        tvError.setVisibility(View.VISIBLE);
+                        btnSave.setEnabled(true);
+                    });
+        });
+
+        editDialog.show();
+    }
+
 
     // 添加获取屏幕宽度的方法
     private int getScreenWidth() {
