@@ -7,6 +7,35 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:457724435218:android:1c816a05bd6083e05471cb",
+        "android_client_info": {
+          "package_name": "com.example.moll.storagemoll"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPuEhspJFdKsuiEbXybWzaAL0JnjaL-W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:457724435218:android:0a07c391a319fafe5471cb",
         "android_client_info": {
           "package_name": "com.example.smartport"
@@ -21,6 +50,101 @@
             "certificate_hash": "bc1fb52cc2fa3b9b8d44fb8b8b12721c911234a2"
           }
         },
+        {
+          "client_id": "457724435218-c45314ndcob8icfgf1fa7engrvmp66t5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.smartport",
+            "certificate_hash": "7a376861b53359743cdbc1432992900476784ad8"
+          }
+        },
+        {
+          "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPuEhspJFdKsuiEbXybWzaAL0JnjaL-W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457724435218:android:7a66493b6c073c965471cb",
+        "android_client_info": {
+          "package_name": "com.example.storage_xiang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPuEhspJFdKsuiEbXybWzaAL0JnjaL-W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457724435218:android:05ff32a795ebd76b5471cb",
+        "android_client_info": {
+          "package_name": "com.example.storagewang"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPuEhspJFdKsuiEbXybWzaAL0JnjaL-W0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:457724435218:android:3f708470a0a0e4d85471cb",
+        "android_client_info": {
+          "package_name": "com.example.tianbo.firebasemlu3"
+        }
+      },
+      "oauth_client": [
         {
           "client_id": "457724435218-dd44d3llhtfko6nn9gattf4v03ldirgc.apps.googleusercontent.com",
           "client_type": 3

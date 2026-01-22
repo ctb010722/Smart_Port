@@ -44,7 +44,16 @@ public class LoginActivity extends AppCompatActivity {
 
         // 检查用户是否已经登录（但不自动跳转）
         verificarUsuarioActual();
+
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        verificarUsuarioActual(); // ✅ 每次回到这个页面都再检查一次
+    }
+
 
     private void verificarUsuarioActual() {
         FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
@@ -136,16 +145,24 @@ public class LoginActivity extends AppCompatActivity {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK) {
-                // 登录成功，检查邮箱验证
                 FirebaseUser usuario = FirebaseAuth.getInstance().getCurrentUser();
-                if (usuario != null && usuario.isEmailVerified()) {
-                    irASelectionActivity();
-                } else if (usuario != null) {
-                    // 用户登录成功但邮箱未验证
-                    usuario.sendEmailVerification();
-                    Toast.makeText(this,
-                            "Por favor verifica tu email antes de continuar",
-                            Toast.LENGTH_LONG).show();
+
+                if (usuario != null) {
+                    // 🔥 关键：强制刷新用户状态
+                    usuario.reload().addOnSuccessListener(aVoid -> {
+                        if (usuario.isEmailVerified()) {
+                            irASelectionActivity();
+                        } else {
+                            usuario.sendEmailVerification();
+                            Toast.makeText(LoginActivity.this,
+                                    "Por favor verifica tu email antes de continuar",
+                                    Toast.LENGTH_LONG).show();
+                        }
+                    }).addOnFailureListener(e -> {
+                        Toast.makeText(LoginActivity.this,
+                                "Error al verificar usuario",
+                                Toast.LENGTH_SHORT).show();
+                    });
                 }
             } else {
                 // 登录失败

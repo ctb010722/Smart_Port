@@ -45,7 +45,7 @@ public class Tab1EncargadoSeguridad extends Fragment {
     private static final String FIELD_EDITED_WEIGHT = "pesoTotal";  // Controlador编辑重量就是 pesoTotal
 
     // ===== 规则 =====
-    private static final double DIFF_THRESHOLD_KG = 500.0;
+    private static final double DIFF_THRESHOLD_KG = 100.0;
 
     // ===== MQTT：按 Tab1Capitan 的写法统一 =====
     private final String BROKER = "tcp://broker.emqx.io:1883";
